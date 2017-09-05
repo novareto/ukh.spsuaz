@@ -16,6 +16,9 @@ from zeam.form.base.errors import Error
 from zeam.form.base.markers import NO_VALUE
 
 
+grok.templatedir('templates')
+
+
 class ISUnfallanzeige(IUnfallanzeige):
 
     traeger = TextLine(

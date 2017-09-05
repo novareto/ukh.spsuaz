@@ -1,0 +1,60 @@
+<fieldset>
+  <legend tal:content="view.label" />
+  <div class="step-fields"
+       tal:define="W view.fieldWidgets"
+       tal:condition="W">
+    <div class="row">
+      <div class="col-md-12"
+	   tal:define="widget W.get('form.accidenti.field.unfdatum')"
+	   metal:use-macro="view.macros['field']" />
+    </div>
+
+    <div class="row">
+      <div class="col-md-12"
+	   tal:define="widget W.get('form.accidenti.field.unfzeit')"
+	   metal:use-macro="view.macros['field']" />
+    </div>
+
+    <div class="row">
+      <div class="col-md-12"
+	   tal:define="widget W.get('form.accidenti.field.unfort')"
+	   metal:use-macro="view.macros['field']" />
+    </div>
+
+    <div class="row">
+      <div class="col-md-12"
+	   tal:define="widget W.get('form.accidenti.field.unfhg1')"
+	   metal:use-macro="view.macros['field']" />
+    </div>
+
+    <div class="row">
+      <div class="col-md-12"
+	   tal:define="widget W.get('form.accidenti.field.unfhg2')"
+	   metal:use-macro="view.macros['field']" />
+    </div>
+
+     <div class="row">
+      <div class="col-md-12"
+	   tal:define="widget W.get('form.accidenti.field.unfkn1')"
+	   metal:use-macro="view.macros['field']" />
+    </div>
+
+     <div class="row">
+      <div class="col-md-12"
+	   tal:define="widget W.get('form.accidenti.field.unfkn2')"
+	   metal:use-macro="view.macros['field']" />
+    </div>
+  </div>
+
+  <div class="fields" tal:condition="view.parent.fieldWidgets">
+    <span class="field" tal:repeat="widget view.parent.fieldWidgets">
+      <tal:widget tal:content="structure widget.render()" />
+    </span>
+  </div>
+
+  <div class="actions">
+    <span class="action" tal:repeat="widget view.actionWidgets">
+      <tal:widget tal:content="structure widget.render()" />
+    </span>
+  </div>
+</fieldset>

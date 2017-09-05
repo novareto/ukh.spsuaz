@@ -1,0 +1,45 @@
+<fieldset>
+  <legend tal:content="view.label" />
+    <h1> KLAUS </h1>
+  <div class="step-fields"
+       tal:define="W view.fieldWidgets"
+       tal:condition="W">
+
+    <div class="row">
+      <div class="col-md-12"
+	   tal:define="widget W.get('form.basic.field.title')"
+	   metal:use-macro="view.macros['field']" />
+    </div>
+
+    <div class="row">
+      <div class="col-md-12"
+	   tal:define="widget W.get('form.basic.field.traeger')"
+	   metal:use-macro="view.macros['field']" />
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+	<div tal:define="widget W.get('form.basic.field.anspname')"
+	     metal:use-macro="view.macros['field']">
+	</div>
+      </div>
+      <div class="col-md-6">
+	<div tal:define="widget W.get('form.basic.field.anspfon')"
+	     metal:use-macro="view.macros['field']">
+	</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fields" tal:condition="view.parent.fieldWidgets">
+    <span class="field" tal:repeat="widget view.parent.fieldWidgets">
+      <tal:widget tal:content="structure widget.render()" />
+    </span>
+  </div>
+
+  <div class="actions">
+    <span class="action" tal:repeat="widget view.actionWidgets">
+      <tal:widget tal:content="structure widget.render()" />
+    </span>
+  </div>
+</fieldset>

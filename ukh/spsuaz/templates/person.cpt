@@ -1,0 +1,89 @@
+<fieldset>
+  <legend tal:content="view.label" />
+  
+  <div class="step-fields"
+       tal:define="W view.fieldWidgets"
+       tal:condition="W">
+
+    <div class="row">
+      <div class="col-md-12"
+	   tal:define="widget W.get('form.person.field.prsvtr')"
+	   metal:use-macro="view.macros['field']" />
+    </div>
+    
+    
+    <div class="row">
+      <div class="col-md-12"
+	   tal:define="widget W.get('form.person.field.prsname')"
+	   metal:use-macro="view.macros['field']" />
+    </div>
+    
+    <div class="row">
+      <div class="col-md-12"
+	   tal:define="widget W.get('form.person.field.prsvor')"
+	   metal:use-macro="view.macros['field']" />
+    </div>
+    
+    <div class="row">
+      <div class="col-md-12"
+	   tal:define="widget W.get('form.person.field.ikstr')"
+	   metal:use-macro="view.macros['field']" />
+    </div>
+
+    <div class="row">
+      <div class="col-md-12"
+	   tal:define="widget W.get('form.person.field.iknr')"
+	   metal:use-macro="view.macros['field']" />
+    </div>
+
+    <div class="row">
+      <div class="col-md-12"
+	   tal:define="widget W.get('form.person.field.ikzplz')"
+	   metal:use-macro="view.macros['field']" />
+    </div>
+
+    <div class="row">
+      <div class="col-md-12"
+	   tal:define="widget W.get('form.person.field.ikzort')"
+	   metal:use-macro="view.macros['field']" />
+    </div>
+    
+
+    <div class="row">
+      <div class="col-md-12"
+	   tal:define="widget W.get('form.person.field.lkz')"
+	   metal:use-macro="view.macros['field']" />
+    </div>
+    
+    <div class="row">
+      <div class="col-md-12"
+	   tal:define="widget W.get('form.person.field.prsgeb')"
+	   metal:use-macro="view.macros['field']" />
+    </div>
+    
+    <div class="row">
+      <div class="col-md-12"
+	   tal:define="widget W.get('form.person.field.prssex')"
+	   metal:use-macro="view.macros['field']" />
+    </div>
+    
+    <div class="row">
+      <div class="col-md-12"
+	   tal:define="widget W.get('form.person.field.prssta')"
+	   metal:use-macro="view.macros['field']" />
+    </div>
+
+  </div>
+    
+  <div class="fields" tal:condition="view.parent.fieldWidgets">
+    <span class="field" tal:repeat="widget view.parent.fieldWidgets">
+      <tal:widget tal:content="structure widget.render()" />
+    </span>
+  </div>
+  
+  <div class="actions">
+    <span class="action" tal:repeat="widget view.actionWidgets">
+      <tal:widget tal:content="structure widget.render()" />
+    </span>
+  </div>
+</fieldset>
