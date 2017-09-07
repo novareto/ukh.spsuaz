@@ -1,6 +1,6 @@
 <fieldset>
   <legend tal:content="view.label" />
-    <h1> KLAUS </h1>
+    <h1> Schüler Unfallanzeige </h1>
   <div class="step-fields"
        tal:define="W view.fieldWidgets"
        tal:condition="W">
