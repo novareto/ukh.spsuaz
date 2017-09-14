@@ -29,8 +29,8 @@ class AddVerbandsbuch(AddVerbandsbuch):
             return
         uaz = Unfallanzeige()
         set_fields_data(ISUnfallanzeige, uaz, data)
-        interface.alsoProvides(uaz, ISUnfallanzeige)
         interface.alsoProvides(uaz, IVerbandbuchEintrag)
+        interface.alsoProvides(uaz, ISUnfallanzeige)
         self.context.add(uaz)
         self.flash(u'Ihr Eintrag wurde erstellt')
         self.redirect(self.url(self.context))
