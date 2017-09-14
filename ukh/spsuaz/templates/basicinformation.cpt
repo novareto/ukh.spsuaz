@@ -8,6 +8,11 @@
 	   tal:define="widget W.get('form.basicinformation.field.unfus2')"
 	   metal:use-macro="view.macros['field']" />
     </div>
+    <div class="row">
+      <div class="col-md-12"
+	   tal:define="widget W.get('form.basicinformation.field.behandlung')"
+	   metal:use-macro="view.macros['field']" />
+    </div>
   </div>
   
   <div class="fields" tal:condition="view.parent.fieldWidgets">

@@ -197,7 +197,8 @@ class BasicInformation(steps.BasicInformation):
     grok.context(ISUnfallanzeige)
     grok.view(UnfallanzeigenWizard)
     label = u'Allgemeine Informationen'
-    fields = uvcsite.Fields(ISUnfallanzeige).select('unfus2')
+    fields = uvcsite.Fields(ISUnfallanzeige).select('unfus2', 'behandlung')
+    fields['behandlung']
 
     def update(self):
         super(BasicInformation, self).update()

@@ -1,0 +1,48 @@
+<fieldset>
+  <legend tal:content="view.label" />
+  <form tal:attributes="action request.URL" method="POST" novalidate="novalidate" id="verbandsbuch">
+  <div class="step-fields"
+       tal:define="W view.fieldWidgets"
+       tal:condition="W">
+
+    <div class="row">
+      <div class="col-md-12"
+	   tal:define="widget W.get('form.field.prsname')"
+	   metal:use-macro="view.macros['field']" />
+    </div>
+    <div class="row">
+      <div class="col-md-12"
+	   tal:define="widget W.get('form.field.prsvor')"
+	   metal:use-macro="view.macros['field']" />
+    </div>
+    <div class="row">
+      <div class="col-md-12"
+	   tal:define="widget W.get('form.field.prsgeb')"
+	   metal:use-macro="view.macros['field']" />
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+	<div tal:define="widget W.get('form.field.unfdatum')"
+	     metal:use-macro="view.macros['field']">
+	</div>
+      </div>
+      <div class="col-md-6">
+	<div tal:define="widget W.get('form.field.unfzeit')"
+	     metal:use-macro="view.macros['field']">
+	</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12"
+	   tal:define="widget W.get('form.field.unfhg1')"
+	   metal:use-macro="view.macros['field']" />
+    </div>
+  </div>
+
+  <div class="actions">
+    <span class="action" tal:repeat="widget view.actionWidgets">
+      <tal:widget tal:content="structure widget.render()" />
+    </span>
+  </div>
+  </form>
+</fieldset>
