@@ -120,12 +120,21 @@ class KiDatenDale(BaseXML):
         #    adressetraeger = adresse['iknam1'] # WICHTIG Hier noch die weitere Adresse einfuegen und testen
         # Einrichtung
         else:
-            name1 = adresse['iknam1']
-            name2 = adresse['iknam2']
-            name3 = adresse['iknam3']
-            stra = adresse['ikstr'] + adresse['ikhnr']
-            plz = str(adresse['ikhplz'])
-            ort = adresse['ikhort']
+            if 'iknam1' in adresse:
+                name1 = adresse['iknam1']
+                name2 = adresse['iknam2']
+                name3 = adresse['iknam3']
+                stra = adresse['ikstr'] + adresse['ikhnr']
+                plz = str(adresse['ikhplz'])
+                ort = adresse['ikhort']
+            else:
+                name1 = "fehlt:adresse['iknam1']"
+                name2 = "fehlt:adresse['iknam2']"
+                name3 = "fehlt:adresse['iknam3']"
+                stra = "fehlt:adresse['ikstr'] + adresse['ikhnr']"
+                plz = "fehlt:str(adresse['ikhplz'])"
+                ort = "fehlt:adresse['ikhort']"
+
             adressetraeger = context.traeger
         # Daten einfuegen...
         ufb_1 = '%s %s %s %s' % (name1, name2, name3, adressetraeger)

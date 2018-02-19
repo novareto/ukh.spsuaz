@@ -1,4 +1,6 @@
+<div id="extrainfo" tal:replace="structure provider: uvcsite.extrainfo" />
 <form action="." method="post"
+      novalidate="novalidate"
       enctype="multipart/form-data"
       class="dolmen-wizard-form"
       tal:attributes="action request.getURL()">

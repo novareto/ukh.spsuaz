@@ -4,11 +4,7 @@
        tal:define="W view.fieldWidgets"
        tal:condition="W">
        <div class="row">
-         <div class="col-md-3">
-           <div tal:define="widget W.get('form.accidenti.field.unfdatum')" metal:use-macro="view.macros['field']"> </div> 
-         </div>
-         <div class="col-md-3">
-           <div tal:define="widget W.get('form.accidenti.field.unfzeit')" metal:use-macro="view.macros['field']"> </div>
+         <div tal:define="widget W.get('form.accidenti.field.unfdatum'); widget2 W.get('form.accidenti.field.unfzeit') " metal:use-macro="view.macros['doublefield']">
          </div>
        </div>
 
@@ -48,10 +44,10 @@
       <tal:widget tal:content="structure widget.render()" />
     </span>
   </div>
+</fieldset>
 
   <div class="actions">
     <span class="action" tal:repeat="widget view.actionWidgets">
       <tal:widget tal:content="structure widget.render()" />
     </span>
   </div>
-</fieldset>

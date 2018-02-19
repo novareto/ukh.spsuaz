@@ -1,29 +1,189 @@
 <fieldset>
   <legend tal:content="view.label" />
+
+  <div id="accordion">
+    <h1 class="current"> Basis Informationen </h1>
+    <div class="pane">
+      <table>
+        <tr>
+          <th width="290"> Titel der Unfallanzeige: </th>
+          <td tal:content="context.title"></td>
+        </tr>
+        <tr>
+          <th> Traeger der Einrichtung: </th>
+          <td tal:content="context.traeger"></td>
+        </tr>
+        <tr>
+          <th> Ansprechpartner: </th>
+          <td tal:content="context.anspname"></td>
+        </tr>
+        <tr>
+          <th> Telefonnummer: </th>
+          <td tal:content="context.anspfon"></td>
+        </tr>
+        <tr>
+          <th> Leiter (Beauftragter) der Einrichtung: </th>
+          <td tal:content="context.unfus2"></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <h1> Angaben zur versicherten Person </h1>
+  <div class="pane">
+    <table>
+      <tr>
+        <th width="290"> Gesetzliche Vertreter des Versicherten: </th>
+        <td tal:content="context.prsvtr"> </td>
+      </tr>
+      <tr>
+        <th> Name des Versicherten: </th>
+        <td tal:content="context.prsname"> </td>
+      </tr>
+
+      <tr>
+        <th> Vorname: </th>
+        <td tal:content="context.prsvor"> </td>
+      </tr>
+
+      <tr>
+        <th> Anschrift: </th>
+        <td> <span tal:replace="context.ikstr"></span> 
+          <span tal:replace="context.iknr"> </span> /
+          <span tal:replace="context.lkz"></span>-
+          <span tal:replace="context.ikzplz"></span> 
+          <span tal:replace="context.ikzort"></span>
+        </td>
+      </tr>
+
+      <tr>
+        <th> Geburtsdatum: </th>
+        <td tal:content="context.prsgeb"></td>
+      </tr>
+
+      <tr>
+        <th> Geschlecht: </th>
+        <td tal:content="context.prssex" ></td>
+      </tr>
+
+      <tr>
+        <th> Staatsangehörigkeit: </th>
+        <td tal:content="context.prssta" ></td>
+      </tr>
+    </table>
+  </div>
+
+
+  <h1>  Informationen zum Unfall Teil I</h1>
+  <div class="pane">
+    <table>
+      <tr>
+        <th width="290"> Unfallzeitpunkt: </th>
+        <td> <span tal:replace="context.unfdatum"></span> <span tal:replace="context.unfzeit"></span> </td>
+      </tr>
+      <tr>
+        <th> Unfallort: </th>
+        <td tal:content="context.unfort"></td>
+      </tr>
+      <tr>
+        <th> Unfallhergang: </th>
+        <td tal:content="context.unfhg1"></td>
+      </tr>
+      <tr>
+        <th> Die Angaben zum Unfall sind von: </th>
+        <td tal:content="context.unfhg2" ></td>
+      </tr>
+      <tr>
+        <th> Zeugen des Unfalls: </th>
+        <td tal:content="context.unfkn1" ></td>
+      </tr>
+      <tr>
+        <th> War diese Person Augenzeuge? </th>
+        <td tal:content="context.unfkn2" ></td>
+      </tr>
+    </table>
+  </div>
+
+
+  <h1>  Informationen zum Unfall Teil II</h1>
+  <div class="pane">
+    <table>
+      <tr>
+        <th width="290"> Tödlicher Unfall: </th>
+        <td tal:content="context.prstkz"></td>
+      </tr>
+      <div tal:condition="python: context.prstkz != 'ja'">
+        <tr>
+          <th> Wurde der Besuch der Einrichtung eingestellt? </th>
+          <td tal:content="context.unfae1"/>
+        </tr>
+        <div tal:condition="python: context.unfae1 != 'nein'">
+          <div tal:condition="python: context.unfae1 == 'ja, spaeter am:'">
+            <tr>
+              <th> Datum Uhrzeit: </th>
+              <td> <span tal:content="context.unfaedatum"/> um <span tal:content="context.unfaezeit"/> Uhr</td>
+            </tr>
+          </div>
+          <tr>
+            <th> Wurde der Besuch der Einrichtung wieder aufgenommen: </th>
+             <td tal:content="context.unfwa1"></td>
+          </tr>
+          <div tal:condition="python: context.unfwa1 == 'ja'">
+            <tr>
+              <th> Datum: </th>
+              <td> <span tal:content="context.unfwax"/> </td>
+            </tr>
+          </div>
+        </div>
+        <tr>
+          <th> Die Einrichtung wird besucht von, bis: </th>
+          <td> <span tal:replace="context.uadbavon"/> <span tal:replace="context.uadbabis"/> </td>
+        </tr>
+        <tr>
+          <th> Verletzte Körperteile: </th>
+          <td tal:content="context.diavkt"></td>
+        </tr>
+        <tr>
+          <th> Art der Verletzung: </th>
+          <td tal:content="context.diaadv"></td>
+        </tr>
+        <tr>
+          <th> War eine Erstbehandlung erforderlich: </th>
+          <td tal:content="context.unfeba"></td>
+        </tr>
+        <div tal:condition="python: context.unfeba == 'Aerztliche Behandlung bei:'">
+          <tr>
+            <th> Erstbehandelnder Arzt: </th>
+            <td tal:content="context.unfeba1"></td>
+          </tr>
+        </div>
+      </div>
+    </table>
+  </div>
+</fieldset>
+
+<br/>
+
+<fieldset>
+  <legend> Weitere Bearbeitung der Unfallanzeige </legend>
   <div class="step-fields"
        tal:define="W view.fieldWidgets"
        tal:condition="W">
-    <div class="row">
-      <div class="col-md-12"
-	   tal:define="widget W.get('form.basicinformation.field.unfus2')"
-	   metal:use-macro="view.macros['field']" />
-    </div>
     <div class="row">
       <div class="col-md-12"
 	   tal:define="widget W.get('form.basicinformation.field.behandlung')"
 	   metal:use-macro="view.macros['field']" />
     </div>
   </div>
-  
   <div class="fields" tal:condition="view.parent.fieldWidgets">
     <span class="field" tal:repeat="widget view.parent.fieldWidgets">
       <tal:widget tal:content="structure widget.render()" />
     </span>
   </div>
+</fieldset>
+
 
   <div class="actions">
     <span class="action" tal:repeat="widget view.actionWidgets">
       <tal:widget tal:content="structure widget.render()" />
     </span>
   </div>
-</fieldset>

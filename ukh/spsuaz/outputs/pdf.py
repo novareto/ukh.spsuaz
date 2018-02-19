@@ -216,7 +216,8 @@ class KiDatenPDF(BasePDF):
         c.setFont(schriftartfett, 18)
         c.drawString(12.5 * cm, 28.4 * cm, "U N F A L L A N Z E I G E")
         c.setFont(schriftart, 11)
-        c.drawString(12.5 * cm, 27.5 * cm, "für Kinder in Tageseinrichtungen")
+        c.drawString(12.5 * cm, 28.0 * cm, "für Kinder in Tageseinrichtungen,")
+        c.drawString(12.5 * cm, 27.6 * cm, "Schüler, Studierende")
         # Beschriftung Feld 1
         c.setFont(schriftartfett, 7)
         c.drawString(1.8 * cm, 28.9 * cm, "1")
@@ -417,16 +418,20 @@ class KiDatenPDF(BasePDF):
             c.setFont(schriftartfett, 8)
             x = 28.6
             # Namensfelder werden nur ausgegeben wenn diese gefuellt sind
-            if adresse['iknam1'] != '':
-                c.drawString(1.7 * cm, x * cm, adresse[u'iknam1'])
-                x = x - 0.3
-            if adresse[u'iknam2'] != '':
-                c.drawString(1.7 * cm, x * cm, adresse[u'iknam2'] + ' ' + adresse[u'iknam3'])
-                x = x - 0.3
-            c.drawString(1.7 * cm, x * cm, adresse[u'ikstr'] + ' ' + adresse[u'ikhnr'])
-            x = x - 0.3
-            c.drawString(1.7 * cm, x * cm, str(adresse['ikhplz']) + ' ' + adresse['ikhort'])
             #
+            if 'iknam1' in adresse:
+                if adresse['iknam1'] != '':
+                    c.drawString(1.7 * cm, x * cm, adresse[u'iknam1'])
+                    x = x - 0.3
+                if adresse[u'iknam2'] != '':
+                    c.drawString(1.7 * cm, x * cm, adresse[u'iknam2'] + ' ' + adresse[u'iknam3'])
+                    x = x - 0.3
+                c.drawString(1.7 * cm, x * cm, adresse[u'ikstr'] + ' ' + adresse[u'ikhnr'])
+                x = x - 0.3
+                c.drawString(1.7 * cm, x * cm, str(adresse['ikhplz']) + ' ' + adresse['ikhort'])
+            else:
+                print "KEINE Adresse...!!!"
+                
             #   (2) Traeger der Einrichtung
             #
             c.setFont(schriftartfett, 8)

@@ -11,7 +11,6 @@
 	   metal:use-macro="view.macros['field']" />
     </div>
     
-    
     <div class="row">
       <div class="col-md-12"
 	   tal:define="widget W.get('form.person.field.prsname')"
@@ -22,26 +21,18 @@
       <div class="col-md-12"
 	   tal:define="widget W.get('form.person.field.prsvor')"
 	   metal:use-macro="view.macros['field']" />
-    </div>
-    
+   </div>
+
     <div class="row">
-      <div class="col-md-8">
-        <div tal:define="widget W.get('form.person.field.ikstr')" metal:use-macro="view.macros['field']"> </div>
-      </div>
-      <div class="col-md-4">
-        <div tal:define="widget W.get('form.person.field.iknr')" metal:use-macro="view.macros['field']"> </div>
+      <div tal:define="widget W.get('form.person.field.ikstr'); widget2 W.get('form.person.field.iknr') " metal:use-macro="view.macros['doublefield']">
       </div>
     </div>
 
+
     <div class="row">
-      <div class="col-md-4">
-        <div tal:define="widget W.get('form.person.field.ikzplz')" metal:use-macro="view.macros['field']"> </div>
-      </div>
-      <div class="col-md-8">
-        <div tal:define="widget W.get('form.person.field.ikzort')" metal:use-macro="view.macros['field']" > </div>
+      <div tal:define="widget W.get('form.person.field.ikzplz'); widget2 W.get('form.person.field.ikzort') " metal:use-macro="view.macros['doublefield']">
       </div>
     </div>
-    
 
     <div class="row">
       <div class="col-md-12"
@@ -74,10 +65,10 @@
       <tal:widget tal:content="structure widget.render()" />
     </span>
   </div>
+</fieldset>
   
   <div class="actions">
     <span class="action" tal:repeat="widget view.actionWidgets">
       <tal:widget tal:content="structure widget.render()" />
     </span>
   </div>
-</fieldset>

@@ -1,6 +1,6 @@
 <fieldset>
   <legend tal:content="view.label" />
-  <form tal:attributes="action request.URL" method="POST" novalidate="novalidate" id="verbandsbuch">
+  <form tal:attributes="action request.URL" method="POST" novalidate="novalidate" id="verbandbuch">
   <div class="step-fields"
        tal:define="W view.fieldWidgets"
        tal:condition="W">
@@ -21,14 +21,9 @@
 	   metal:use-macro="view.macros['field']" />
     </div>
     <div class="row">
-      <div class="col-md-6">
-	<div tal:define="widget W.get('form.field.unfdatum')"
-	     metal:use-macro="view.macros['field']">
-	</div>
-      </div>
-      <div class="col-md-6">
-	<div tal:define="widget W.get('form.field.unfzeit')"
-	     metal:use-macro="view.macros['field']">
+      <div class="col-md-12">
+	<div tal:define="widget W.get('form.field.unfdatum'); widget2 W.get('form.field.unfzeit')"
+	     metal:use-macro="view.macros['doublefield']">
 	</div>
       </div>
     </div>

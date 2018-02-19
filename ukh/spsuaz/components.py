@@ -15,6 +15,12 @@ from zope.schema import Text, TextLine
 from zeam.form.base.errors import Error
 from zeam.form.base.markers import NO_VALUE
 
+from uvc.unfallanzeige.verbandsbuch import MetaTypeColumn
+from resources import seite1css, seite2css, seite3css, seite4css, seite5css
+from resources import seite2js, seite3js, seite4js
+from resources import buttonjs
+from uvcsite.viewlets.steps import StepsProgressBar
+from zope.interface import Interface
 
 grok.templatedir('templates')
 
@@ -36,6 +42,10 @@ class ISUnfallanzeige(IUnfallanzeige):
 
 class SUnfallanzeigen(Unfallanzeigen):
     pass
+
+
+class MetaTypeColumn(MetaTypeColumn):
+    grok.context(SUnfallanzeigen)
 
 
 class Adder(Adder):
@@ -61,6 +71,17 @@ class UnfallanzeigenWizard(uvcsite.Wizard):
         uazcss.need()
 
 
+class StepsProgressBar1(StepsProgressBar):
+    grok.context(Interface)
+    grok.view(UnfallanzeigenWizard)
+    grok.viewletmanager(uvcsite.IAboveContent)
+
+
+#class Overview(steps.Overview):
+#    grok.context(ISUnfallanzeige)
+#    grok.view(UnfallanzeigenWizard)
+
+
 class Basic(steps.Basic):
     grok.context(ISUnfallanzeige)
     grok.view(UnfallanzeigenWizard)
@@ -70,10 +91,19 @@ class Basic(steps.Basic):
         fields1 = uvcsite.Fields(ISUnfallanzeige).select('title')
         fields3 = uvcsite.Fields(ISUnfallanzeige).select('anspname', 'anspfon')
         fields2 = uvcsite.Fields(ISUnfallanzeige).select('traeger')
-        return fields1 + fields2 + fields3
+        fields4 = uvcsite.Fields(ISUnfallanzeige).select('unfus2')
+        fields1['title'].htmlAttributes = {'maxlength': 70}
+        fields2['traeger'].htmlAttributes = {'maxlength': 70}
+        fields3['anspname'].htmlAttributes = {'maxlength': 30}
+        fields3['anspfon'].htmlAttributes = {'maxlength': 20}
+        fields4['unfus2'].htmlAttributes = {'maxlength': 30}
+        fields4['unfus2'].title = u'Leiter (Beauftragter) der Einrichtung'
+        fields4['unfus2'].description = u''
+        return fields1 + fields2 + fields3 + fields4
 
     def update(self):
         super(Basic, self).update()
+        seite1css.need()
 
 
 class Person(steps.Person):
@@ -87,6 +117,18 @@ class Person(steps.Person):
     kifields = uvcsite.Fields(ISUnfallanzeige).select('prsvtr')
     fields = kifields + fields
     fields['prssex'].mode = 'radio'
+    fields['prsname'].htmlAttributes = {'maxlength': 30}
+    fields['prsvor'].htmlAttributes = {'maxlength': 30}
+    fields['ikstr'].htmlAttributes = {'maxlength': 30}
+    fields['iknr'].htmlAttributes = {'maxlength': 10}
+    fields['ikzplz'].htmlAttributes = {'maxlength': 5}
+    fields['ikzort'].htmlAttributes = {'maxlength': 30}
+    fields['prsgeb'].htmlAttributes = {'maxlength': 10}
+
+    def update(self):
+        super(Person, self).update()
+        seite2css.need()
+        seite2js.need()
 
     def validateStep(self, data, errors):
         super(Person, self).validateStep(data, errors)
@@ -111,6 +153,11 @@ class AccidentI(steps.AccidentI):
     fields['unfhg2'].mode = 'radio'
     fields['unfkn2'].mode = 'radio'
 
+    def update(self):
+        super(AccidentI, self).update()
+        seite3css.need()
+        seite3js.need()
+
 
 class AccidentII(steps.AccidentII):
     grok.context(ISUnfallanzeige)
@@ -125,6 +172,8 @@ class AccidentII(steps.AccidentII):
     fields['unfae1'].mode = 'radio'
     fields['unfwa1'].mode = 'radio'
     fields['unfeba'].mode = 'radio'
+    fields['diavkt'].htmlAttributes = {'maxlength': 60}
+    fields['diaadv'].htmlAttributes = {'maxlength': 60}
 
     def update(self):
         super(AccidentII, self).update()
@@ -138,6 +187,8 @@ class AccidentII(steps.AccidentII):
         self.fields.get('uadbavon').description = u""
         self.fields.get('uadbabis').title = u'und endet um Uhrzeit (hh:mm)'
         self.fields.get('uadbabis').description = u""
+        seite4css.need()
+        seite4js.need()
 
     def validateStep(self, data, errors):
         super(AccidentII, self).validateStep(data, errors)
@@ -196,11 +247,26 @@ class AccidentII(steps.AccidentII):
 class BasicInformation(steps.BasicInformation):
     grok.context(ISUnfallanzeige)
     grok.view(UnfallanzeigenWizard)
-    label = u'Allgemeine Informationen'
-    fields = uvcsite.Fields(ISUnfallanzeige).select('unfus2', 'behandlung')
-    fields['behandlung']
+    label = u'Versand und Druck der Unfallanzeige'
+    fields = uvcsite.Fields(ISUnfallanzeige).select('behandlung')
+    #fields = uvcsite.Fields(ISUnfallanzeige).select('unfus2', 'behandlung')
+    fields['behandlung'].mode = "radio"
 
     def update(self):
         super(BasicInformation, self).update()
-        self.fields.get('unfus2').title = u'Leiter (Beauftragter) der Einrichtung'
-        self.fields.get('unfus2').description = u""
+        buttonjs.need()
+        #self.fields.get('unfus2').title = u'Leiter (Beauftragter) der Einrichtung'
+        #self.fields.get('unfus2').description = u""
+        #seite5css.need()
+
+    #@uvcsite.action(u'Abbrechen')
+    #def handle_cancel(self):
+    #    self.flash('Die Aktion wurde abgebrochen.')
+    #    self.redirect(self.application_url())
+
+
+
+
+class Index(uvcsite.Page):
+    grok.require('uvc.ViewContent')
+    grok.context(ISUnfallanzeige)

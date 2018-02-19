@@ -1,5 +1,5 @@
-import uvcsite
 import grok
+import uvcsite
 
 
 class UnfallanzeigeRegistration(uvcsite.ProductRegistration):
@@ -8,7 +8,6 @@ class UnfallanzeigeRegistration(uvcsite.ProductRegistration):
     grok.description('Kinder Unfallanzeige')
     grok.order(51)
     uvcsite.productfolder('ukh.spsuaz.components.SUnfallanzeigen')
-    icon = "fanstatic/ukh.spsuaz/uaz_ki.png"
 
     def action(self):
         return "%sSunfallanzeigen/add" % uvcsite.getHomeFolderUrl(self.request)
