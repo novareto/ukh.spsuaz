@@ -1,0 +1,18 @@
+#form-field-prsname,
+#form-field-prsvor
+    {
+    width: 500px;
+    }
+
+#form-field-prsgeb,
+#form-field-unfdatum,
+#form-field-unfzeit
+    {
+    width: 200px;
+    }
+
+#form-field-unfhg1
+    {
+    width: 600px;
+    height: 150px;
+    }

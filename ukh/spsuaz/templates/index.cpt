@@ -1,0 +1,14 @@
+<div>
+  <h1> Unfallanzeige </h1>
+  <br>
+  <h3> Ihre Unfallanzeige wurde in dem Verzeichnis der Unfallanzeigen abgelegt. </h3>
+  <br>
+  <h3> Um sich ein Exemplar dieser Unfallanzeige auszudrucken, klicken Sie auf das PDF Symbol </h3>
+  <br>
+  <br>
+  <div align="center">
+  <a href="" tal:attributes="href python: view.url(context)+'/kipdf'"> 
+    <img class="img-responsive" src="" tal:attributes="src 'fanstatic/ukh.schulportal/pdf_icon.gif'" />
+  </a>
+  </div>
+</div>

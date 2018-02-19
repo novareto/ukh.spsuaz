@@ -1,0 +1,12 @@
+<h1> Unfallanzeige </h1>
+
+<p> War ein Arztbesuch erforderlich? </p>
+
+<ul class="list-unstyled">
+  <li>
+    <a href="" class="btn" tal:attributes="href view.getLink('add')"> Ja </a>
+  </li>
+  <li>
+    <a href="" class="btn" tal:attributes="href view.getLink('addverbandbuch')"> Nein </a>
+  </li>
+</ul>

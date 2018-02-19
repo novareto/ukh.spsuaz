@@ -1,0 +1,29 @@
+#form-person-field-prsvtr
+    {
+    width: 500px;
+    height: 100px;
+    }
+
+#form-person-field-prsname,
+#form-person-field-prsvor
+    {
+    width: 500px;
+    }
+
+#form-person-field-ikstr,
+#form-person-field-ikzort
+    {
+    width: 350px;
+    }
+
+#form-person-field-iknr,
+#form-person-field-ikzplz
+    {
+    width: 88px;
+    }
+
+#form-person-field-lkz,
+#form-person-field-prssta
+    {
+    width: 300px;
+    }
