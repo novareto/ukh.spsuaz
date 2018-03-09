@@ -15,6 +15,10 @@ from zope.schema.interfaces import IVocabularyFactory
 from zope.i18n import translate
 from zope.dublincore.interfaces import IZopeDublinCore
 from zope.pluggableauth.factories import Principal
+from z3c.saconfig import Session
+from sqlalchemy import and_
+from sqlalchemy.sql import select
+from ukh.schulportal.configs.database_setup import traegeruaz
 
 
 def nN(value):
@@ -47,6 +51,13 @@ class KiDatenPDF(BasePDF):
         #stammdaten = IStammdaten(self.request.principal)
         #adresse = stammdaten.getAdresse()
         adresse = self.request.principal.getAdresse()
+        traegernr = u''
+        oid = adresse['enroid']
+        session = Session()
+        s = select([traegeruaz], and_(traegeruaz.c.trgrcd == str(oid)))
+        res = session.execute(s).fetchone()
+        if res:
+            traegernr = str(res['trgmnr']).strip()
         c = self.c
         c.setAuthor("UKH")
         c.setTitle("Kinder-Unfallanzeige")
@@ -437,8 +448,8 @@ class KiDatenPDF(BasePDF):
             c.setFont(schriftartfett, 8)
             traeger = nN(context.traeger)
             y = 26.4
-            if len(traeger) > 50:
-                n = 50
+            if len(traeger) > 40:
+                n = 40
                 if traeger is not None:
                     while len(traeger) > 0:
                         if len(traeger) > n:
@@ -462,18 +473,20 @@ class KiDatenPDF(BasePDF):
                             traeger = ''
             else:
                 c.drawString(12.6 * cm, y * cm, traeger)
+            y = y - 0.50
+            c.drawString(12.6 * cm, y * cm, traegernr)
         #
         #   (3) Mitgliedsnummer
         #
         #if IMitglied.providedBy(self.request.principal):
-        #    x = 12.7
-        #    y = 23.7
-        #    c.setFont(schriftart, 10)
-        #    mnr = adresse['trgmnr']
+        x = 12.7
+        y = 23.7
+        c.setFont(schriftart, 10)
+        mnr = str(adresse['enrlfd'])
         #    mitglied = mnr[0] + mnr[2:4] + mnr[5:7] + mnr[8:]
-        #    for i in mitglied:
-        #        c.drawString(x * cm, y * cm, i)
-        #        x = x + 0.7
+        for i in mnr:
+            c.drawString(x * cm, y * cm, i)
+            x = x + 0.7
         #
         #   (4) Empfänger (Unfallversicherungsträger)
         #
@@ -989,19 +1002,19 @@ class KiDatenPDF(BasePDF):
             c.setFillGray(1.0)
             c.rect(1.6 * cm, 27.6 * cm, width=9.0 * cm, height=1.6 * cm, stroke=1, fill=1)
             #if IMitglied.providedBy(self.request.principal):
-            #    c.rect(12.5 * cm, 27.6 * cm, width=7.6 * cm, height=1.6 * cm, stroke=1, fill=1)
+            c.rect(12.5 * cm, 27.6 * cm, width=7.6 * cm, height=1.6 * cm, stroke=1, fill=1)
             c.rect(1.6 * cm, 3.0 * cm, width=18.4 * cm, height=19.6 * cm, stroke=1, fill=1)
             c.rect(1.6 * cm, 22.8 * cm, width=18.4 * cm, height=1.6 * cm, stroke=1, fill=1)
             # Linien Mitgliedsnummer
             #if IMitglied.providedBy(self.request.principal):
-            #    x1 = 13.2
-            #    x2 = 13.2
-            #    y1 = 27.6
-            #    y2 = 28.0
-            #    for i in range(10):
-            #        c.line(x1 * cm, y1 * cm, x2 * cm, y2 * cm)
-            #        x1 = x1 + 0.7
-            #        x2 = x2 + 0.7
+            x1 = 13.2
+            x2 = 13.2
+            y1 = 27.6
+            y2 = 28.0
+            for i in range(10):
+                c.line(x1 * cm, y1 * cm, x2 * cm, y2 * cm)
+                x1 = x1 + 0.7
+                x2 = x2 + 0.7
             # Titel fuer Seite2 des Formulars
             c.setFillGray(0.0)
             c.setFont(schriftartfett, 18)
@@ -1030,6 +1043,9 @@ class KiDatenPDF(BasePDF):
             x = 12.7
             y = 27.7
             c.setFont(schriftart, 10)
+            for i in mnr:
+                c.drawString(x * cm, y * cm, i)
+                x = x + 0.7
             #if IMitglied.providedBy(self.request.principal):
             #    mnr = adresse['trgmnr']
             #    mitglied = mnr[0] + mnr[2:4] + mnr[5:7] + mnr[8:]

@@ -64,16 +64,17 @@ def handle_save(obj, event, transition='publish'):
                 mydale = getMultiAdapter((obj, event.request), name=u'kixml')
                 mydale.update(filename=fnXML)
                 mydale.base_file.close()
-                #IWorkflowInfo(obj).fireTransition(transition)
-                grokcore.message.send(u'Vielen Dank, Ihre Unfallanzeige wurde gespeichert und versendet!')
+                IWorkflowInfo(obj).fireTransition(transition)
+                ####grokcore.message.send(u'Vielen Dank, Ihre Unfallanzeige wurde gespeichert und versendet!')
             else:
-                grokcore.message.send(u'Vielen Dank, Ihre Unfallanzeige wurde als Entwurf  \
-                                        gespeichert. Sie können zu \
-                                        einem beliebigen Zeitpunkt mit der Bearbeitung fortfahren.')
+                ####grokcore.message.send(u'Vielen Dank, Ihre Unfallanzeige wurde als Entwurf  \
+                ####                        gespeichert. Sie können zu \
+                ####                        einem beliebigen Zeitpunkt mit der Bearbeitung fortfahren.')
+                pass
         else:
             grokcore.message.send(u'Ihre Unfallanzeige wurde bereits versendet und befindet sich in dem Verzeichnis der Unfallanzeigen.')
 
     except StandardError:
         sp.rollback()
-        #IWorkflowInfo(obj).fireTransition('progress')
+        IWorkflowInfo(obj).fireTransition('progress')
         uvcsite.logger.exception("Achtung FEHLER")

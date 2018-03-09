@@ -4,9 +4,10 @@
 
 <ul class="list-unstyled">
   <li>
-    <a href="" class="btn" tal:attributes="href view.getLink('add')"> Ja </a>
+    <a href="" class="btn3" tal:attributes="href view.getLink('add')"> Ja </a>
   </li>
+  <br/>
   <li>
-    <a href="" class="btn" tal:attributes="href view.getLink('addverbandbuch')"> Nein </a>
+    <a href="" class="btn3" tal:attributes="href view.getLink('addverbandbuch')"> Nein </a>
   </li>
 </ul>

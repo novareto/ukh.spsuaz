@@ -2,7 +2,7 @@
   <legend tal:content="view.label" />
 
   <div id="accordion">
-    <h1 class="current"> Basis Informationen </h1>
+    <h1 class="current"> Basis-Informationen </h1>
     <div class="pane">
       <table>
         <tr>

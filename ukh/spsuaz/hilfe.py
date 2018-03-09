@@ -8,6 +8,7 @@ from zope import interface
 from uvc.unfallanzeige.interfaces import IUnfallanzeige
 from components import ISUnfallanzeige
 from zope.app.renderer.rest import ReStructuredTextToHTMLRenderer
+from ukh.spsuaz.components import UnfallanzeigenWizard
 
 # template dir
 grok.templatedir('templates')
@@ -29,6 +30,7 @@ grok.templatedir('templates')
 
 class ContextBasedHelp(uvcsite.HelpPage):
     grok.context(ISUnfallanzeige)
+    grok.view(UnfallanzeigenWizard)
     help_rst = ""
 
     def update(self):
@@ -38,6 +40,7 @@ class ContextBasedHelp(uvcsite.HelpPage):
     def render(self):
         if self.help_rst:
             try:
+                print self.help_rst
                 template = grok.PageTemplateFile(self.help_rst)
                 renderer = ReStructuredTextToHTMLRenderer(template.render(self), None)
                 return renderer.render()

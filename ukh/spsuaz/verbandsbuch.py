@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 import grok
 import uvcsite
 import zope.component
@@ -21,6 +21,10 @@ class AddVerbandbuch(AddVerbandbuch):
     label = u"Verbandbuch"
 
     def update(self):
+        t1 = u'Solange kein Arztbesuch erforderlich wird, bitte den Unfall zur Dokumentation im Verbandbuch erfassen.'
+        t2 = u' Eine Unfallanzeige ist in diesen Fällen nicht erforderlich.'
+        t3 = u' Die Daten aus dem Verbandbuch werden später gegebenenfalls in die Unfallmeldung übernommen.'
+        self.flash(t1+t2+t3)
         verbandbuch_js.need()
         verbandbuch_css.need()
 
@@ -31,7 +35,14 @@ class AddVerbandbuch(AddVerbandbuch):
             name='fieldmacros'
         ).template.macros
 
-    @uvcsite.action('Eintrag ins Verbandbuch')
+    @uvcsite.action(u'Abbrechen')
+    def handle_cancel(self):
+        from grokcore.message import receive
+        print [x for x in receive()]
+        self.flash('Die Aktion wurde abgebrochen.')
+        self.redirect(self.application_url())
+
+    @uvcsite.action('Eintrag speichern')
     def handle_save(self):
         data, errors = self.extractData()
         if errors:
@@ -44,11 +55,6 @@ class AddVerbandbuch(AddVerbandbuch):
         self.context.add(uaz)
         self.flash(u'Ihr Eintrag wurde erstellt')
         self.redirect("%s?filter=vb" % self.url(self.context))
-
-    @uvcsite.action(u'Abbrechen')
-    def handle_cancel(self):
-        self.flash('Die Aktion wurde abgebrochen.')
-        self.redirect(self.application_url())
 
 
 class EditVerbandbuch(EditVerbandbuch):

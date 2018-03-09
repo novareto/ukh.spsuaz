@@ -2,6 +2,8 @@ $(document).ready(function(){
 
     $('input#form-field-prsname').attr('maxlength','30');
     $('input#form-field-prsvor').attr('maxlength','30');
+    $('input#form-field-diavkt').attr('maxlength','60');
+    $('input#form-field-diaadv').attr('maxlength','60');
 
     $('input#form-field-unfzeit').attr('placeholder', 'HH:MM').mask('99:99');
     $('input#form-field-unfdatum').attr('placeholder', 'TT.MM.JJJJ').mask('99.99.9999');

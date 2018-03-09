@@ -1,14 +1,32 @@
-<div>
-  <h1> Unfallanzeige </h1>
+<div tal:condition="context.behandlung == 'Versand'">
+  <h1> Vielen Dank! </h1>
   <br>
-  <h3> Ihre Unfallanzeige wurde in dem Verzeichnis der Unfallanzeigen abgelegt. </h3>
+  <h3> Ihre Unfallanzeige wurde erfolgreich an die Unfallkasse Hessen übermittelt. </h3>
+  <h3> Eine Übersicht finden Sie im Menü "Unfallanzeigen" </h3>
   <br>
-  <h3> Um sich ein Exemplar dieser Unfallanzeige auszudrucken, klicken Sie auf das PDF Symbol </h3>
+  <ul class="list-unstyled">
+    <li>
+       <a href="" class="btn2" tal:attributes="href python: view.url(context)+'/kipdf'"> Unfallanzeige drucken </a>
+    </li>
+    <br/>
+    <li>
+       <a href="" class="btn2" tal:attributes="href view.application_url()"> Zur Startseite </a>
+    </li>
+  </ul>
+</div>
+<div tal:condition="context.behandlung != 'Versand'">
+  <h1> Entwurf gespeichert </h1>
   <br>
+  <h3> Ihre Unfallanzeige wurde als Entwurf im Menü Unfallanzeigen gespeichert und nicht an die Unfallkasse Hessen übermittelt. </h3>
+  <h3> Sie können die Bearbeitung zu einem beliebigen Zeitpunkt fortsetzen </h3>
   <br>
-  <div align="center">
-  <a href="" tal:attributes="href python: view.url(context)+'/kipdf'"> 
-    <img class="img-responsive" src="" tal:attributes="src 'fanstatic/ukh.schulportal/pdf_icon.gif'" />
-  </a>
-  </div>
+  <ul class="list-unstyled">
+    <li>
+       <a href="" class="btn2" tal:attributes="href python: view.url(context)+'/kipdf'"> Unfallanzeige drucken </a>
+    </li>
+    <br/>
+    <li>
+       <a href="" class="btn2" tal:attributes="href view.application_url()"> Zur Startseite </a>
+    </li>
+  </ul>
 </div>

@@ -21,6 +21,11 @@ from resources import seite2js, seite3js, seite4js
 from resources import buttonjs
 from uvcsite.viewlets.steps import StepsProgressBar
 from zope.interface import Interface
+from z3c.saconfig import Session
+from sqlalchemy import and_
+from sqlalchemy.sql import select
+from ukh.schulportal.configs.database_setup import traegeruaz
+
 
 grok.templatedir('templates')
 
@@ -34,7 +39,7 @@ class ISUnfallanzeige(IUnfallanzeige):
     )
 
     prsvtr = Text(
-        title=u'Gesetzlicher Vertreter',
+        title=u'Gesetzliche Vertreter',
         description=u'Name und Anschrift der gesetzlichen Vertreter',
         required=False,
     )
@@ -88,17 +93,23 @@ class Basic(steps.Basic):
 
     @property
     def fields(self):
+        adr = self.request.principal.getAdresse()
+        oid = adr['enroid']
+        session = Session()
+        s = select([traegeruaz], and_(traegeruaz.c.trgrcd == str(oid)))
+        res = session.execute(s).fetchone()
         fields1 = uvcsite.Fields(ISUnfallanzeige).select('title')
         fields3 = uvcsite.Fields(ISUnfallanzeige).select('anspname', 'anspfon')
         fields2 = uvcsite.Fields(ISUnfallanzeige).select('traeger')
         fields4 = uvcsite.Fields(ISUnfallanzeige).select('unfus2')
         fields1['title'].htmlAttributes = {'maxlength': 70}
-        fields2['traeger'].htmlAttributes = {'maxlength': 70}
         fields3['anspname'].htmlAttributes = {'maxlength': 30}
         fields3['anspfon'].htmlAttributes = {'maxlength': 20}
         fields4['unfus2'].htmlAttributes = {'maxlength': 30}
         fields4['unfus2'].title = u'Leiter (Beauftragter) der Einrichtung'
         fields4['unfus2'].description = u''
+        fields2['traeger'].mode = "hiddendisplay"
+        fields2['traeger'].defaultValue = res['trgna1'].strip() + ' ' + res['trgna2'].strip()
         return fields1 + fields2 + fields3 + fields4
 
     def update(self):

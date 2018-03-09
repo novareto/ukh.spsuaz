@@ -7,7 +7,6 @@ import grok
 import lxml.etree as etree
 import tempfile
 
-from zope.interface import Interface
 from time import strftime, localtime
 #from ukh.markers.interfaces import IMitglied, IEinrichtung
 #from uvcsite.interfaces import IStammdaten
@@ -18,6 +17,10 @@ from StringIO import StringIO
 from uvcsite.utils.dataviews import BaseXML
 from zope.dublincore.interfaces import IZopeDublinCore
 from zope.pluggableauth.factories import Principal
+#from z3c.saconfig import Session
+#from sqlalchemy import and_
+#from sqlalchemy.sql import select
+#from ukh.schulportal.configs.database_setup import traegeruaz
 
 
 class KiDatenDale(BaseXML):
@@ -44,6 +47,18 @@ class KiDatenDale(BaseXML):
         principal = self.request.principal
         #stammdaten = IStammdaten(self.request.principal)
         adresse = principal.getAdresse()
+        traegeroid = u''
+        oid = str(adresse['oid']).strip()
+        if len(oid) == 9:
+            oid = '000000' + oid 
+        #session = Session()
+        #s = select([traegeruaz], and_(traegeruaz.c.trgrcd == str(oid)))
+        #res = session.execute(s).fetchone()
+        print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+        print oid 
+        print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+        #if res:
+        #    traegeroid = str(res['trgmnr']).strip()
         xml_file = self.base_file
         io = StringIO()
         xml = XMLWriter(io, encoding = 'utf-8')
@@ -256,12 +271,7 @@ class KiDatenDale(BaseXML):
         xml.element("uaz_8", '1')
         xml.element("uaz_9", '0')
         xml.element("uaz_10", context.prsvtr)
-        # uaz 11 fuer einrichtungen...
-        #if IMitglied.providedBy(self.request.principal):
-        uaz_11 = ''
-        #if IEinrichtung.providedBy(self.request.principal):
-        #uaz_11 = str(adresse['trgrcd'])
-        xml.element("uaz_11", uaz_11)
+        xml.element("uaz_11", oid)
         xml.end("uaz")
 
         xml.close(suaz)
