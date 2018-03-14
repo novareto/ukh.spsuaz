@@ -58,6 +58,8 @@ class KiDatenPDF(BasePDF):
         res = session.execute(s).fetchone()
         if res:
             traegernr = str(res['trgmnr']).strip()
+        if res['trgna1'][:6] == 'PSEUDO':
+            traegernr = ''
         c = self.c
         c.setAuthor("UKH")
         c.setTitle("Kinder-Unfallanzeige")

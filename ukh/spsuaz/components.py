@@ -109,7 +109,10 @@ class Basic(steps.Basic):
         fields4['unfus2'].title = u'Leiter (Beauftragter) der Einrichtung'
         fields4['unfus2'].description = u''
         fields2['traeger'].mode = "hiddendisplay"
-        fields2['traeger'].defaultValue = res['trgna1'].strip() + ' ' + res['trgna2'].strip()
+        if res['trgna1'][:6] == 'PSEUDO':
+            fields2['traeger'].defaultValue = res['trgmnr'] 
+        else:
+            fields2['traeger'].defaultValue = res['trgna1'].strip() + ' ' + res['trgna2'].strip()
         return fields1 + fields2 + fields3 + fields4
 
     def update(self):
