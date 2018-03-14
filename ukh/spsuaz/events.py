@@ -25,8 +25,8 @@ def getDaleDir():
     zurück und legt das Verzeichnis an, wenn es nicht
     bereits existiert.
     """
-    # basepath = '/transfer/unfallanzeige/euaz'
-    basepath = '/tmp/euaz'
+    basepath = '/transfer/unfallanzeige/euaz'
+    #basepath = '/tmp/euaz'
     archdir = datetime.datetime.now().strftime('%y/%m/%d')
     path = '%s/%s' % (basepath, archdir)
     if not os.path.exists(path):
