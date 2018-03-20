@@ -29,7 +29,7 @@ def nN(value):
 
 class KiDatenPDF(BasePDF):
     grok.name('kipdf')
-    grok.title('Kinder-Unfallanzeige')
+    grok.title('Kinder-Unfallanzeige.pdf')
 
     def getFile(self, fn):
         if fn:
