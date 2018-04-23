@@ -21,7 +21,25 @@ class UTagColumn(Column):
     header = u"Unfalltag"
     weight = 200
     table(IFolderListingTable)
-    grok.baseclass()
 
     def renderCell(self, item):
-        return item.unfdatum
+        if item.unfdatum is not None:
+            udat = item.unfdatum
+        else:
+            udat = ''
+        return udat
+
+
+class NamColumn(Column):
+    grok.name('unam')
+    grok.context(IUnfallanzeigenFolder)
+    header = u"Name"
+    weight = 200
+    table(IFolderListingTable)
+
+    def renderCell(self, item):
+        if item.prsvor is not None:
+            name = str(item.prsvor) + ' ' + str(item.prsname)
+        else:
+            name = ''
+        return name
