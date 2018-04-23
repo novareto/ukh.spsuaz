@@ -39,7 +39,7 @@ class NamColumn(Column):
 
     def renderCell(self, item):
         if item.prsvor is not None:
-            name = str(item.prsvor) + ' ' + str(item.prsname)
+            name = item.prsvor + ' ' + item.prsname
         else:
             name = ''
         return name
