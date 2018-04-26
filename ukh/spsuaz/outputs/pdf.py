@@ -380,7 +380,7 @@ class KiDatenPDF(BasePDF):
         c.drawString(2.2 * cm, 4.55 * cm, u"Name und Anschrift des erstbehandelnden Arztes/Krankenhauses")
         # Beschriftung Feld 21
         c.setFont(schriftartfett, 7)
-        c.drawString(13.5 * cm, 4.55 * cm, "22")
+        c.drawString(13.5 * cm, 4.55 * cm, "21")
         c.setFont(schriftart, 7)
         c.drawString(13.9 * cm, 4.55 * cm, u"Beginn und Ende des Besuchs der Einrichtung")
         c.drawString(13.9 * cm, 3.75 * cm, u"Beginn")
