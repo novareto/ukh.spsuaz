@@ -13,6 +13,9 @@
        <a href="" class="btn2" tal:attributes="href view.application_url()"> Zur Startseite </a>
     </li>
   </ul>
+  <br>
+  <h3> Bitte schicken Sie uns die Unfallanzeige nicht noch einmal per Fax oder per Post. </h3>
+  <h3> Sie haben mit der elektronischen Übermittlung Ihre Meldepflicht erfüllt. </h3>
 </div>
 <div tal:condition="context.behandlung != 'Versand'">
   <h1> Entwurf gespeichert </h1>
